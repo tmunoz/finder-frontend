@@ -1,34 +1,60 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import IconMenu from 'material-ui/IconMenu';
+import IconButton from 'material-ui/IconButton';
+import FontIcon from 'material-ui/FontIcon';
+import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
+import MenuItem from 'material-ui/MenuItem';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import RaisedButton from 'material-ui/RaisedButton';
+import darkBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 
 class App extends Component {
-  // props son los atributos de la clase, aca se llaman propiedades.
-  constructor(props){
-    // super llama al constructor de la clase padre.
+
+  constructor(props) {
     super(props);
     this.state = {
-      name: 'Juan'
+      value: 3,
     };
-    fetch('URL-Backend') // conectarse al Backend
-      .then(response => response.json())
-      .then(responseJSON => {
-
-      }).catch(error => {
-
-      });
   }
+
+  handleChange = (event, index, value) => this.setState({value: value});
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+          <Toolbar>
+            <ToolbarGroup firstChild={true}>
+              <DropDownMenu value={this.state.value} onChange={this.handleChange}>
+                <MenuItem value={1} primaryText="All Broadcasts" />
+                <MenuItem value={2} primaryText="All Voice" />
+                <MenuItem value={3} primaryText="All Text" />
+                <MenuItem value={4} primaryText="Complete Voice" />
+                <MenuItem value={5} primaryText="Complete Text" />
+                <MenuItem value={6} primaryText="Active Voice" />
+                <MenuItem value={7} primaryText="Active Text" />
+              </DropDownMenu>
+            </ToolbarGroup>
+            <ToolbarGroup>
+              <ToolbarTitle text="Options" />
+              <FontIcon className="muidocs-icon-custom-sort" />
+              <ToolbarSeparator />
+              <RaisedButton label="Create Broadcast" primary={true} />
+              <IconMenu
+                iconButtonElement={
+                  <IconButton touch={true}>
+                    <NavigationExpandMoreIcon />
+                  </IconButton>
+                }
+              >
+                <MenuItem primaryText="Download" />
+                <MenuItem primaryText="More Info" />
+              </IconMenu>
+            </ToolbarGroup>
+          </Toolbar>
+         </MuiThemeProvider>
     );
   }
 }
