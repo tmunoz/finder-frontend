@@ -1,0 +1,53 @@
+.tm-sidebar-left {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  width: 240px !important;
+  overflow: auto;
+  z-index: 300;
+  background: rgb(100,182,116);
+  background: -moz-linear-gradient(top, rgb(100,182,116) 0%, rgb(56,102,127) 100%);
+  background: -webkit-linear-gradient(top, rgb(100,182,116) 0%,rgb(56,102,127) 100%);
+  background: linear-gradient(to bottom, rgb(100,182,116) 0%,rgb(56,102,127) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#64b674', endColorstr='#38667f',GradientType=0 );
+}
+
+.nav-header {
+  width: 100%;
+  border-bottom: 2px solid #f3f4f8;
+}
+
+.content-main {
+  padding-left: 260px;
+}
+
+hr {
+  opacity: .15;
+}
+
+.uk-hr {
+  margin-bottom: 0 !important;
+}
+
+#nav-right.uk-nav > li.active {
+  background-color: #113c4f;
+  border-left: 5px solid #FFF;
+}
+
+#nav-right.uk-nav > li > a {
+  padding: 20px 0;
+  border-left: 5px solid transparent;
+}
+
+#nav-right.uk-nav > li > a:hover {
+  background-color: #113c4f;
+}
+
+.border-right-2-grey-color{
+  border-right: 2px solid #f3f4f8;
+}
+
+.nav-header > .uk-navbar > .uk-navbar-right > .uk-navbar-nav > li > a {
+  height: 60px;
+}
