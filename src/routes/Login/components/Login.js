@@ -5,12 +5,13 @@ import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
+
 import './Login.scss'
 
 class Login extends Component{
 
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {
       username: '',
       password: '',
@@ -33,7 +34,7 @@ class Login extends Component{
   handleLogin = () => {
     if (this.checkValuesForm()) {
       this.setState({ loadingLogin: true })
-      fetch('http://localhost:5000/login', {
+      fetch('http://localhost:5555/user/login', {
         method: 'POST',
         headers: {
           "content-type": "application/json",
@@ -44,23 +45,22 @@ class Login extends Component{
           "password": this.state.password
         }),
       })
-      .then((response) => {
-        if (response.status == 1) {
-          response.json().then(token => {
-            sessionStorage.setItem('jwtToken', token.token)
+      .then((response) => response.json())
+      .then(responseJSON => {
+        if (responseJSON.status == 1) {
+            sessionStorage.setItem('jwtToken', responseJSON.token)
             browserHistory.push('/dashboard')
-          })
         } else
-            console.log('error')
+            alert(responseJSON.description)
       })
       .catch((error) => {
-        console.log(error)
+        alert(error.description)
       })
       this.setState({ loadingLogin: false })
-    } else 
+    } else
         console.log('error')
   }
-  
+
   render(){
     return(
       <div className="bg-login">

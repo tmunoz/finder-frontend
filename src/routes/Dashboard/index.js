@@ -11,7 +11,7 @@ export default (store, auth) => ({
       const Dashboard = require('./containers/DashboardContainer').default
 
       /*  Return getComponent   */
-      cb(null, Login)
+      cb(null, Dashboard)
 
     /* Webpack named bundle   */
     }, 'dashboard')
