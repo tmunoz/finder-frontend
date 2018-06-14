@@ -49,7 +49,7 @@ export const createRoutes = (store) => ({
     indexRoute  : dashboardRoute(store),
     childRoutes : [
     ]
-  },
+  }
   ]
 })
 

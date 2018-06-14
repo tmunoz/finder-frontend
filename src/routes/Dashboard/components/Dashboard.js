@@ -7,14 +7,35 @@ import TextField from '@material-ui/core/TextField';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import FormControl from '@material-ui/core/FormControl';
-
+import Map from './Map.js'
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import SearchIcon from "@material-ui/icons/Search";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import './Dashboard.scss'
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: "#757ce8",
+      main: "#578d95",
+      dark: "#002884",
+      contrastText: "#fff"
+    },
+    secondary: {
+      light: "#ff7961",
+      main: "#f44336",
+      dark: "#ba000d",
+      contrastText: "#000"
+    }
+  }
+});
+
+const styles = {
+  textField: {
+    color: "white"
+  }
+};
 
 const parseJwt = (token) => {
     var base64Url = token.split('.')[1];
@@ -99,6 +120,7 @@ class User extends React.Component{
         <div className = "content-dashboard">
           <Grid container spacing={0}>
             <Grid item lg={12}>
+            <MuiThemeProvider theme={theme}>
             <AppBar position = "static">
               <Toolbar>
                 <Grid container spacing={0}>
@@ -109,22 +131,25 @@ class User extends React.Component{
                     Lista
                   </Button>
                 </Grid>
-                <FormControl className = "directions-searcher">
-                  <InputLabel htmlFor="directions-searcher">Buscar</InputLabel>
-                  <Input
-                    id="direction"
-                    startAdornment={
+                <TextField
+                  //className={classes.margin}
+                  id="input-with-icon-textfield"
+                  label="Buscar dirección"
+                  inputStyle={styles.textField}
+                  InputProps={{
+                    startAdornment: (
                       <InputAdornment position="start">
-                        <SearchIcon />
+                        <SearchIcon color="inherit" />
                       </InputAdornment>
-                    }
-                  />
-                </FormControl>
+                    ),
+                  }}
+                />
                 <IconButton color="inherit" aria-label="profile" onClick={() => this.handleProfileSettings()}>
                   <AccountCircle />
                 </IconButton>
               </Toolbar>
             </AppBar>
+            </MuiThemeProvider>
             </Grid>
           </Grid>
         </div>
@@ -143,7 +168,7 @@ class User extends React.Component{
               )
             :
             <div>
-              <span>Nada aun...</span>
+              <span> <Map /> </span>
             </div>
           }
         </div>
