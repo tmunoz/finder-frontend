@@ -50,8 +50,9 @@ class Login extends Component{
         if (responseJSON.status == 1) {
             sessionStorage.setItem('jwtToken', responseJSON.token)
             browserHistory.push('/dashboard')
-        } else
+        } else {
             alert(responseJSON.description)
+        }
       })
       .catch((error) => {
         alert(error.description)
