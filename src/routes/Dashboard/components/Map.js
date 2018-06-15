@@ -1,19 +1,3 @@
-<<<<<<< HEAD
-import React, { Component } from "react";
-
-import "./Dashboard.scss"
-
-class Map extends Component{
-    render(){
-        return(
-            <div className="containerMap">
-                <h1>MAPA</h1>
-            </div>
-        );
-    }
-}
-
-=======
 import React from "react";
 import mapboxgl from 'mapbox-gl';
 
@@ -32,18 +16,9 @@ class Map extends React.Component {
   }
 
   render() {
-    const style = {
-      position: 'absolute',
-      top: 0,
-      bottom: 0,
-      width: '100%'
-    };
 
-    return <div style={style} ref={el => this.mapContainer = el} />;
+    return <div className="containerMap" style={{width:"100%", height:"100%"}} ref={el => this.mapContainer = el} />;
   }
 }
 
-
-
->>>>>>> c0e4c102f0904ff3f4223fafd79d0e20510cdb0e
 export default Map;

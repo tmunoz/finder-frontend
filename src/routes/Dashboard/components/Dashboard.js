@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { createMuiTheme } from '@material-ui/core/styles';
 
 import Map from "./Map.js";
 import SideBar from "./SideBar.js"
