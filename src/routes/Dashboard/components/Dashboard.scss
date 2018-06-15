@@ -1,12 +1,19 @@
-.content-dashboard {
-  color: white;
+.containerSidebar{
+    position: fixed!important;
+    background-color: #181c1f;
+    width: 20%;
+    height: 100%;
 }
 
-.content-dashboard AppBar{
-  background-color: #578d95;
-  color: #578d95;
+.logo{
+    padding-top: 30px;
+    padding-bottom: 30px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.content-dashboard .directions-searcher{
-  color: white;
+.containerMap{
+    position: fixed;
+    margin-left:20%;
 }
