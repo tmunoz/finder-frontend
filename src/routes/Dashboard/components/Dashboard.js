@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { createMuiTheme } from '@material-ui/core/styles';
 
-import Map from "./Map.js";
+import Map from './Map.js'
 import SideBar from "./SideBar.js"
 
 import "./Dashboard.scss"
@@ -36,15 +36,19 @@ const parseJwt = (token) => {
 };
 
 class Dashboard extends Component {
-    state = {
-        locations: []
+  constructor(props){
+    super(props);
+    this.state = {
+      locations: [],
+      loadingLocations: true
     }
+  }
 
     componentDidMount() {
       const token = sessionStorage.getItem("jwtToken");
       const email = parseJwt(token);
       let id = 0;
-      fetch('http://apifinder.herokuapp.com/user/info/'+ email.admin)
+      fetch('https://apifinder.herokuapp.com/user/info/'+ email.admin)
       .then(response => response.json())
       .then(responseJSON => {
             responseJSON.data.id
@@ -52,22 +56,33 @@ class Dashboard extends Component {
             .then(res => res.json())
             .then(resJSON => {
                   this.setState({
-                    locations: resJSON.data
+                    locations: resJSON.data,
+                    loadingLocations: false
                   });
+                  console.log(resJSON.data);
             })
       })
     }
 
     render(){
+        const {locations, loadingLocations} = this.state;
         return(
+          <div>
             <div style={{display:"inline"}}>
                 <div>
                     <SideBar/>
                 </div>
-                <div>
-                    <Map />
-                </div>
             </div>
+            <div style={{marginLeft: '274px'}}>
+              {
+                !loadingLocations ?
+                  <Map locations = {locations}/>
+                :
+                  <span>Cargando lugares favoritos...</span>
+              }
+            </div>
+          </div>
+
         );
     }
 }
