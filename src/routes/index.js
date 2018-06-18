@@ -1,12 +1,8 @@
 // We only need to import the modules necessary for initial render
 import { browserHistory } from 'react-router'
-import CoreLayout from '../layouts/PageLayout/PageLayout'
-import Home from './Home'
-import Login from './Login'
-import Dashboard from './Dashboard'
+
 import loginRoute from './Login'
 import dashboardRoute from './Dashboard'
-import CounterRoute from './Counter'
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -30,25 +26,16 @@ const isBearerToken = () => {
 
 export const createRoutes = (store) => ({
   path        : '/',
+  indexRoute  : loginRoute(store),
   childRoutes : [{
-    component   : CoreLayout,
-    indexRoute  : Home,
-    onEnter     : isLoggedIn
-  },
-  {
     path        : '/login',
     indexRoute  : loginRoute(store),
     onEnter     : isBearerToken,
-    childRoutes : [
-    ]
   },
   {
     path        : '/dashboard',
-    component   : CoreLayout,
     onEnter     : isAuthenticated,
     indexRoute  : dashboardRoute(store),
-    childRoutes : [
-    ]
   }
   ]
 })

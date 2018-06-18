@@ -2,24 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
-import Modal from '@material-ui/core/Modal';
-import { withStyles } from '@material-ui/core/styles';
 
-import "./Dashboard.scss"
-
-const styles = theme => ({
-  paper: {
-    position: 'absolute',
-    width: theme.spacing.unit * 50,
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4,
-  },
-});
+import "./Dashboard.scss";
 
 class SideBar extends Component{
     state = {
-        open: true,
+        open: false,
     }
 
     handleOpen = () => {
@@ -36,11 +24,10 @@ class SideBar extends Component{
             <div className="containerSidebar">
                 <img className="logo" alt="logo" src="finder.png" width="30%"/>
                 <div className="buttons">
-                    <Button fullWidth onClick={this.handleOpen.bind(this)}>
+                    <Button fullWidth onClick={this.handleOpen}>
                         Agregar
                         <Icon>add</Icon>
                     </Button>
-
                     <Button fullWidth>
                         Buscar
                         <Icon>location_on</Icon>
@@ -58,22 +45,10 @@ class SideBar extends Component{
                         <Icon>exit_to_app</Icon>
                     </Button>
                 </div>
-
-                <Modal
-                    open={this.state.open}
-                    onClose={this.handleClose}
-                >
-                    <div className={classes.paper}>
-                        <h1>Hola Mundo</h1>
-                    </div>
-                </Modal>
             </div>
         );
     }
 }
 
-SideBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
-export default withStyles(styles)(SideBar);
+export default SideBar;

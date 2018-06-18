@@ -84,15 +84,9 @@ class Map extends React.Component {
   // }
 
   render() {
-    const style = {
-      position: 'absolute',
-      top: '2px',
-      bottom: '10px',
-      width: '68%'
-    };
 
     return (
-      <div style = {style} ref = {el => this.mapContainer = el}/>
+      <div className="containerMap" ref = {el => this.mapContainer = el}/>
     );
   }
 }
