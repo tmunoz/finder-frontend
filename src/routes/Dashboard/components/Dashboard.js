@@ -5,6 +5,7 @@ import Map from './Map.js'
 import SideBar from "./SideBar.js"
 
 import "./Dashboard.scss"
+// import "./Map.scss"
 
 const theme = createMuiTheme({
   palette: {
@@ -40,8 +41,26 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       locations: [],
-      loadingLocations: true
+      loadingLocations: true,
+      searchedAddress: "",
+      pointLat: 0,
+      pointLng: 0
     }
+  }
+
+  handleMapClick (lat, lng) {
+    this.setState({
+      pointLat: lat,
+      pointLng: lng
+    });
+  }
+
+  handleMapSearch(address, lat, lng){
+    this.setState({
+      pointLat: lat,
+      pointLng: lng,
+      searchedAddress: address // TODO: DESPUES DE QUE CREES LA LOCATION LIMPIAR VARIABLE, esta se cambia c/vez que se busca una direccion en el mapa.
+    });
   }
 
     componentDidMount() {
@@ -59,7 +78,6 @@ class Dashboard extends Component {
                     locations: resJSON.data,
                     loadingLocations: false
                   });
-                  console.log(resJSON.data);
             })
       })
     }
@@ -70,15 +88,19 @@ class Dashboard extends Component {
           <div>
             <div style={{display:"inline"}}>
                 <div>
-                    <SideBar/>
+                    {/* <SideBar/> */}
                 </div>
             </div>
             <div style={{marginLeft: '274px'}}>
               {
                 !loadingLocations ?
-                  <Map locations = {locations}/>
+                  <Map
+                    locations = {locations}
+                    handleClickCoords = {this.handleMapClick.bind(this)}
+                    handleSearchAddress = {this.handleMapSearch.bind(this)}
+                  />
                 :
-                  <span>Cargando lugares favoritos...</span>
+                  <span>Cargando mapa con tus lugares favoritos...</span>
               }
             </div>
           </div>
