@@ -38,7 +38,31 @@ class Login extends Component{
     return true
   }
 
-  handleCreateUserOK = () => {
+  validateEmail= (email) => {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+
+  itsOK = () => {
+      const {name, username, password} = this.state;
+      if(name === '' || username === '' || password === ''){
+          return false;
+      }else{
+          return true;
+      }
+  }
+
+  SubmitNewUser = () => {
+    if(!this.itsOK()){
+        console.log('error');
+        return alert("Completar todos los campos!");
+    }
+
+    if(!this.validateEmail(this.state.username)){
+        console.log('error');
+        return alert("email no valido");
+    }
+
     fetch('https://apifinder.herokuapp.com/user', {
         method: 'POST',
         headers: {
@@ -53,7 +77,11 @@ class Login extends Component{
       })
       .then((response) => response.json())
       .then(responseJSON => {
-        console.log(responseJSON.status)
+        if(responseJSON.status === 1){
+            alert('Usuario Creado!');
+        }else{
+            alert('Ups... intentalo nuevamente')
+        }
       })
   }
 
@@ -93,7 +121,7 @@ class Login extends Component{
       <div className="bg-login">
 
       { this.state.createUser == false &&
-        
+
         <div className="content-login">
           { this.state.loadingLogin == true &&
             <div className="content-loading">
@@ -144,7 +172,7 @@ class Login extends Component{
 
       { this.state.createUser == true &&
         <div>
-          
+
           <div className="content-login">
             <Grid container spacing={0}>
               <Grid item lg={12}>
@@ -188,7 +216,7 @@ class Login extends Component{
               </Grid>
               <Grid container spacing={0}>
                 <Grid item lg={12}>
-                  <Button variant="raised" color="primary" onClick={this.handleCreateUserOK}>
+                  <Button variant="raised" color="primary" onClick={this.SubmitNewUser}>
                     Crear usuario
                   </Button>
                 </Grid>
@@ -199,7 +227,7 @@ class Login extends Component{
         </div>
       }
 
-        
+
       </div>
     );
   }
