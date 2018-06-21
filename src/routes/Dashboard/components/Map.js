@@ -14,7 +14,6 @@ if (!('remove' in Element.prototype)) {
 }
 
 class Map extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {
@@ -163,16 +162,12 @@ class Map extends React.Component {
     }
   }
 
-  // componentWillUnmount() {
-  //   this.map.remove();
-  // }
-
   render() {
     const style = {
-      position: 'absolute',
-      top: '2px',
-      bottom: '10px',
-      width: '68%'
+      position:'absolute',
+      top: '110px',
+      bottom: '0.1px',
+      width: '100%'
     };
 
     return (

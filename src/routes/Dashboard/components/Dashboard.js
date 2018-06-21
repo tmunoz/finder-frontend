@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { createMuiTheme } from '@material-ui/core/styles';
 
 import Map from './Map.js'
-import SideBar from "./SideBar.js"
+import Header from "./Header.js"
 
 import "./Dashboard.scss"
 // import "./Map.scss"
@@ -86,12 +86,7 @@ class Dashboard extends Component {
         const {locations, loadingLocations} = this.state;
         return(
           <div>
-            <div style={{display:"inline"}}>
-                <div>
-                    {/* <SideBar/> */}
-                </div>
-            </div>
-            <div style={{marginLeft: '274px'}}>
+            <Header/>
               {
                 !loadingLocations ?
                   <Map
@@ -102,7 +97,6 @@ class Dashboard extends Component {
                 :
                   <span>Cargando mapa con tus lugares favoritos...</span>
               }
-            </div>
           </div>
 
         );
