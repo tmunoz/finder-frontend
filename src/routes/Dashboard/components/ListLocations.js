@@ -24,7 +24,6 @@ class ListLocations extends Component {
                         <th><h5>Latitud</h5></th>
                         <th><h5>Longitud</h5></th>
                         <th><h5>Dirección</h5></th>
-                        <th><h5>Imagen</h5></th>
                     </tr>
                     </thead>
 
@@ -36,7 +35,6 @@ class ListLocations extends Component {
                                     <td><h6>{ location.latitude }</h6></td>
                                     <td><h6>{ location.longitude }</h6></td>
                                     <td><h6>{ location.address }</h6></td>
-                                    <td><h6><img src={ location.image } width="200px" /></h6></td>
                                 </tr>
                             );
                         })}
