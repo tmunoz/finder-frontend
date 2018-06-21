@@ -118,11 +118,9 @@ class Dashboard extends Component {
   componentDidMount() {
     const token = sessionStorage.getItem("jwtToken");
     const email = parseJwt(token);
-    let id = 0;
     fetch('https://apifinder.herokuapp.com/user/info/'+ email.admin)
     .then(response => response.json())
     .then(responseJSON => {
-        responseJSON.data.id
         fetch('https://apifinder.herokuapp.com/location/user/'+ responseJSON.data.id)
         .then(res => res.json())
         .then(resJSON => {
