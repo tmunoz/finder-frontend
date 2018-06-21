@@ -75,6 +75,36 @@ class Dashboard extends Component {
     });
   }
 
+  handleDeleteLocation (name, lat, lng) {
+    const data = {
+      name: name,
+      latitude: lat,
+      longitude: lng,
+      usersId: this.state.id
+    };
+    fetch('https://apifinder.herokuapp.com/location/erase',{
+      method: 'DELETE',
+      headers: {
+          "content-type": "application/json",
+          "Accept": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(resp => {
+        if(resp.status == 1){
+            alert('Lugar eliminado correctamente')
+            this.forceUpdate();
+        } else {
+            alert('Ups! ha ocurrido un problema, intenta más tarde')
+        }
+    })
+    .catch(error => {
+        alert('Ups! ha ocurrido un problema, intenta más tarde')
+        console.log(error)
+    })
+  }
+
   componentDidMount() {
     const token = sessionStorage.getItem("jwtToken");
     const email = parseJwt(token);
@@ -114,7 +144,7 @@ class Dashboard extends Component {
                 />
             }
             {action == 'list' &&
-                <ListLocations locations={this.state.locations}/>
+              <ListLocations locations={this.state.locations} handleDeleteLocation = {this.handleDeleteLocation.bind(this)}/>
             }
             {action == 'userProfile' &&
                 <UserProfile name={this.state.name} email={this.state.email} />
