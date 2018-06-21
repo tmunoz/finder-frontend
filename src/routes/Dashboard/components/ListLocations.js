@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Icon from '@material-ui/core/Icon';
-import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button'
 
 import "./ListLocation.scss"
 
@@ -10,11 +9,55 @@ class ListLocations extends Component {
         super(props)
         this.state = {
             locations: props.locations,
+            id: props.userid,
+            notChanged: true
         }
     }
 
-    deleteLocation(name, lat, lng){
-      this.props.handleDeleteLocation(name,lat,lng);
+    componentDidMount(){
+      this.setState({
+        notChanged: true
+      })
+    }
+
+    handleDeleteLocation (name, lat, lng) {
+      const data = {
+        name: name,
+        latitude: lat,
+        longitude: lng,
+        usersId: this.state.id
+      };
+      fetch('https://apifinder.herokuapp.com/location/erase',{
+        method: 'DELETE',
+        headers: {
+            "content-type": "application/json",
+            "Accept": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+      .then(response => response.json())
+      .then(resp => {
+          if(resp.status == 1){
+              alert('Lugar eliminado correctamente')
+              var arr = []
+              for(var i = 0; i<this.state.locations.length;i++){
+                if(this.state.locations[i].name !== name &&
+                  this.state.locations[i].latitude !== lat &&
+                  this.state.locations[i].longitude !== lng){
+                    arr.push(this.state.locations[i]);
+                  }
+              }
+              this.setState({
+                locations: arr
+              })
+          } else {
+              alert('Ups! ha ocurrido un problema, intenta más tarde')
+          }
+      })
+      .catch(error => {
+          alert('Ups! ha ocurrido un problema, intenta más tarde')
+          console.log(error)
+      })
     }
 
     render(){
@@ -31,11 +74,10 @@ class ListLocations extends Component {
                         <th><h5>Latitud</h5></th>
                         <th><h5>Longitud</h5></th>
                         <th><h5>Dirección</h5></th>
-                        <th><h5></h5></th>
                     </tr>
                     </thead>
 
-                    <tbody>
+                    {this.state.notChanged && <tbody>
                         { locations.map((location) => {
                             return(
                                 <tr key={location.id.toString()}>
@@ -44,14 +86,15 @@ class ListLocations extends Component {
                                     <td><h6>{ location.longitude }</h6></td>
                                     <td><h6>{ location.address }</h6></td>
                                     <td>
-                                      <Button color="secondary" onClick={() => this.deleteLocation(location.name, location.latitude, location.longitude)}>
-                                        <Icon>delete</Icon>
+                                      <Button color="primary" onClick={() => this.handleDeleteLocation(location.name, location.latitude, location.longitude)}>
+                                        Borrar
                                       </Button>
                                     </td>
                                 </tr>
                             );
                         })}
                     </tbody>
+                    }
                 </table>
 
 
