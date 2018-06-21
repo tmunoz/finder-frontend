@@ -94,7 +94,6 @@ class Dashboard extends Component {
     .then(resp => {
         if(resp.status == 1){
             alert('Lugar eliminado correctamente')
-            this.forceUpdate();
         } else {
             alert('Ups! ha ocurrido un problema, intenta más tarde')
         }
@@ -103,6 +102,17 @@ class Dashboard extends Component {
         alert('Ups! ha ocurrido un problema, intenta más tarde')
         console.log(error)
     })
+  }
+
+  componentDidUpdate(){
+      fetch('https://apifinder.herokuapp.com/location/user/'+ this.state.id)
+      .then(res => res.json())
+      .then(resJSON => {
+            this.setState({
+              locations: resJSON.data,
+              loadingLocations: false
+            });
+      })
   }
 
   componentDidMount() {
