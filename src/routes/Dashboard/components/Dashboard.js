@@ -74,27 +74,27 @@ class Dashboard extends Component {
     });
   }
 
-    componentDidMount() {
-      const token = sessionStorage.getItem("jwtToken");
-      const email = parseJwt(token);
-      let id = 0;
-      fetch('https://apifinder.herokuapp.com/user/info/'+ email.admin)
-      .then(response => response.json())
-      .then(responseJSON => {
-            responseJSON.data.id
-            fetch('https://apifinder.herokuapp.com/location/user/'+ responseJSON.data.id)
-            .then(res => res.json())
-            .then(resJSON => {
-                  this.setState({
-                    name: responseJSON.data.name,
-                    email: responseJSON.data.email,
-                    password: responseJSON.data.password,
-                    locations: resJSON.data,
-                    loadingLocations: false
-                  });
-            })
-      })
-    }
+  componentDidMount() {
+    const token = sessionStorage.getItem("jwtToken");
+    const email = parseJwt(token);
+    let id = 0;
+    fetch('https://apifinder.herokuapp.com/user/info/'+ email.admin)
+    .then(response => response.json())
+    .then(responseJSON => {
+        responseJSON.data.id
+        fetch('https://apifinder.herokuapp.com/location/user/'+ responseJSON.data.id)
+        .then(res => res.json())
+        .then(resJSON => {
+              this.setState({
+                name: responseJSON.data.name,
+                email: responseJSON.data.email,
+                password: responseJSON.data.password,
+                locations: resJSON.data,
+                loadingLocations: false
+              });
+        })
+    })
+  }
 
     render(){
         const {action, locations, loadingLocations} = this.state;
@@ -107,12 +107,12 @@ class Dashboard extends Component {
             {action == 'addLocation' && <h1> <AddLocation /> </h1>}
             {action == 'list' && <h1> <ListLocations /> </h1>}
             {action == 'userProfile' && <UserProfile name={this.state.name} email={this.state.email} />}
-            {action == 'map' &&
-                <Map
-                  locations = {locations}
-                  handleClickCoords = {this.handleMapClick.bind(this)}
-                  handleSearchAddress = {this.handleMapSearch.bind(this)}
-                />
+            {action == 'map' && !loadingLocations &&
+                  <Map
+                    locations = {locations}
+                    handleClickCoords = {this.handleMapClick.bind(this)}
+                    handleSearchAddress = {this.handleMapSearch.bind(this)}
+                  />
             }
 
 

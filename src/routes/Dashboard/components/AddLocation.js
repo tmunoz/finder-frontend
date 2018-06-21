@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class AddLocation extends Component {
     render(){
         return(
-            <h1>Add Location </h1>
+            <h2>Add Location </h2>
         );
     }
 }
