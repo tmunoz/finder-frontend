@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router'
 import PropTypes from 'prop-types';
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
@@ -26,6 +27,12 @@ const styles = theme => ({
 });
 
 class Header extends Component{
+
+    handleCloseSession = () => {
+        sessionStorage.removeItem('jwtToken')
+        browserHistory.push('/')
+    }
+
     render(){
         const { classes } = this.props;
         return(
@@ -49,6 +56,11 @@ class Header extends Component{
 
                     <Button className={classes.button} onClick={() => {this.props.handleChange('userProfile')}}>
                         {this.props.name}
+                        <Icon className={classes.rightIcon}>account_circle</Icon>
+                    </Button>
+
+                    <Button className={classes.button} onClick={() => {this.handleCloseSession()}}>
+                        Cerrar sesión
                         <Icon className={classes.rightIcon}>account_circle</Icon>
                     </Button>
                 </div>
