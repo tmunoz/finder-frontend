@@ -70,7 +70,7 @@ class AddLocation extends Component {
 
     render(){
         return(
-            <div style={{width:"400px"}}>
+            <div  className="container-locations" style={{width:"400px"}}>
                 <h2>Add Localidad</h2>
                 <TextField
                   fullWidth

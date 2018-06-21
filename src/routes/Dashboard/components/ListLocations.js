@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button'
+import Icon from '@material-ui/core/Icon';
+import Button from '@material-ui/core/Button';
 
 import "./ListLocation.scss"
 
@@ -30,6 +31,7 @@ class ListLocations extends Component {
                         <th><h5>Latitud</h5></th>
                         <th><h5>Longitud</h5></th>
                         <th><h5>Dirección</h5></th>
+                        <th><h5></h5></th>
                     </tr>
                     </thead>
 
@@ -42,8 +44,8 @@ class ListLocations extends Component {
                                     <td><h6>{ location.longitude }</h6></td>
                                     <td><h6>{ location.address }</h6></td>
                                     <td>
-                                      <Button color="primary" onClick={() => this.deleteLocation(location.name, location.latitude, location.longitude)}>
-                                        Borrar
+                                      <Button color="secondary" onClick={() => this.deleteLocation(location.name, location.latitude, location.longitude)}>
+                                        <Icon>delete</Icon>
                                       </Button>
                                     </td>
                                 </tr>
