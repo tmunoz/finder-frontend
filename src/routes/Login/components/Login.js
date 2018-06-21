@@ -26,6 +26,11 @@ class Login extends Component{
     this.setState({ createUser: true })
   }
 
+  goBack = () => {
+    this.setState({ createUser: false })
+
+  }
+
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
@@ -165,7 +170,12 @@ class Login extends Component{
             </Grid>
           </form>
           <br />
-          <button className="btn-create-user" onClick={this.handleCreateUser}>Crear usuario</button>
+          <Grid item lg={12}>
+            <Button variant="raised" color="primary" onClick={this.handleCreateUser}>
+              Crear usuario
+            </Button>
+          </Grid>
+          {/* <button className="btn-create-user" onClick={this.handleCreateUser}>Crear usuario</button> */}
         </div>
 
       }
@@ -218,6 +228,11 @@ class Login extends Component{
                 <Grid item lg={12}>
                   <Button variant="raised" color="primary" onClick={this.SubmitNewUser}>
                     Crear usuario
+                  </Button>
+                </Grid>
+                <Grid item lg={12}>
+                  <Button variant="raised" color="primary" onClick={this.goBack}>
+                    Volver
                   </Button>
                 </Grid>
               </Grid>
