@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { withStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import "./Dashboard.scss";
 
@@ -60,8 +61,7 @@ class Header extends Component{
                     </Button>
 
                     <Button className={classes.button} onClick={() => {this.handleCloseSession()}}>
-                        Cerrar sesión
-                        <Icon className={classes.rightIcon}>account_circle</Icon>
+                        <Icon className={classes.rightIcon}>power_settings_new</Icon>
                     </Button>
                 </div>
             </div>
