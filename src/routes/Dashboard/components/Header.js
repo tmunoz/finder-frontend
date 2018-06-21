@@ -26,46 +26,30 @@ const styles = theme => ({
 });
 
 class Header extends Component{
-    state = {
-        value: 'map',
-    }
-
-    handleChange = (value) => {
-        this.setState({value});
-    }
-
-
     render(){
         const { classes } = this.props;
         return(
             <div className="containerSidebar">
                 <img className="logo" alt="logo" src="finder.png" />
                 <div className="options">
-                    <Button className={classes.button} onClick={() => {this.handleChange('map')}}>
+                    <Button className={classes.button} onClick={() => {this.props.handleChange('map')}}>
                         Mapa
                         <Icon className={classes.rightIcon}>location_on</Icon>
                     </Button>
 
-                    <Button className={classes.button} onClick={() => {this.handleChange('list')}}>
+                    <Button className={classes.button} onClick={() => {this.props.handleChange('addLocation')}}>
+                        Agregar Lugar
+                        <Icon className={classes.rightIcon}>add_circle</Icon>
+                    </Button>
+
+                    <Button className={classes.button} onClick={() => {this.props.handleChange('list')}}>
                         Listar
                         <Icon className={classes.rightIcon}>list</Icon>
                     </Button>
 
-                    <TextField
-                        className={classes.button}
-                        id="input-with-icon-textfield"
-                        label="Buscar"
-                        InputProps={{
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <Icon>search</Icon>
-                            </InputAdornment>
-                          ),
-                        }}
-                    />
-
-                    <Button className={classes.button} onClick={() => {this.handleChange('list')}}>
-                        <Icon className={classes.rightIcon}>add_circle</Icon>
+                    <Button className={classes.button} onClick={() => {this.props.handleChange('userProfile')}}>
+                        {this.props.name}
+                        <Icon className={classes.rightIcon}>account_circle</Icon>
                     </Button>
                 </div>
             </div>

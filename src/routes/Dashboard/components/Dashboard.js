@@ -1,8 +1,11 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { createMuiTheme } from '@material-ui/core/styles';
 
-import Map from './Map.js'
-import Header from "./Header.js"
+import Header from './Header.js';
+import Map from './Map.js';
+import AddLocation from './AddLocation.js';
+import ListLocations from './ListLocations.js';
+import UserProfile from './UserProfile.js';
 
 import "./Dashboard.scss"
 // import "./Map.scss"
@@ -40,12 +43,20 @@ class Dashboard extends Component {
   constructor(props){
     super(props);
     this.state = {
+      action: "map",
+      name: "",
+      email:"",
+      password:"",
       locations: [],
       loadingLocations: true,
       searchedAddress: "",
       pointLat: 0,
       pointLng: 0
     }
+  }
+
+  handleChange = (action) => {
+      this.setState({action});
   }
 
   handleMapClick (lat, lng) {
@@ -75,6 +86,9 @@ class Dashboard extends Component {
             .then(res => res.json())
             .then(resJSON => {
                   this.setState({
+                    name: responseJSON.data.name,
+                    email: responseJSON.data.email,
+                    password: responseJSON.data.password,
                     locations: resJSON.data,
                     loadingLocations: false
                   });
@@ -83,20 +97,25 @@ class Dashboard extends Component {
     }
 
     render(){
-        const {locations, loadingLocations} = this.state;
+        const {action, locations, loadingLocations} = this.state;
         return(
           <div>
-            <Header/>
-              {
-                !loadingLocations ?
-                  <Map
-                    locations = {locations}
-                    handleClickCoords = {this.handleMapClick.bind(this)}
-                    handleSearchAddress = {this.handleMapSearch.bind(this)}
-                  />
-                :
-                  <span>Cargando mapa con tus lugares favoritos...</span>
-              }
+            <Header
+                handleChange={this.handleChange}
+                name={this.state.name}
+            />
+            {action == 'addLocation' && <h1> <AddLocation /> </h1>}
+            {action == 'list' && <h1> <ListLocations /> </h1>}
+            {action == 'userProfile' && <UserProfile name={this.state.name} email={this.state.email} />}
+            {action == 'map' &&
+                <Map
+                  locations = {locations}
+                  handleClickCoords = {this.handleMapClick.bind(this)}
+                  handleSearchAddress = {this.handleMapSearch.bind(this)}
+                />
+            }
+
+
           </div>
 
         );
