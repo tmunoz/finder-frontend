@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Button from '@material-ui/core/Button'
+
 import "./ListLocation.scss"
 
 class ListLocations extends Component {
@@ -8,6 +10,10 @@ class ListLocations extends Component {
         this.state = {
             locations: props.locations,
         }
+    }
+
+    deleteLocation(name, lat, lng){
+      this.props.handleDeleteLocation(name,lat,lng);
     }
 
     render(){
@@ -35,6 +41,11 @@ class ListLocations extends Component {
                                     <td><h6>{ location.latitude }</h6></td>
                                     <td><h6>{ location.longitude }</h6></td>
                                     <td><h6>{ location.address }</h6></td>
+                                    <td>
+                                      <Button color="primary" onClick={() => this.deleteLocation(location.name, location.latitude, location.longitude)}>
+                                        Borrar
+                                      </Button>
+                                    </td>
                                 </tr>
                             );
                         })}
