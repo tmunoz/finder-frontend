@@ -105,7 +105,7 @@ class Dashboard extends Component {
                 name={this.state.name}
             />
             {action == 'addLocation' && <h1> <AddLocation /> </h1>}
-            {action == 'list' && <h1> <ListLocations /> </h1>}
+            {action == 'list' && <h1> <ListLocations locations={this.state.locations}/> </h1>}
             {action == 'userProfile' && <UserProfile name={this.state.name} email={this.state.email} />}
             {action == 'map' && !loadingLocations &&
                   <Map

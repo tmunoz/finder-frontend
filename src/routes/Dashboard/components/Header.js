@@ -38,7 +38,7 @@ class Header extends Component{
         const { classes } = this.props;
         return(
             <div className="containerSidebar">
-                <img className="logo" alt="logo" src="finder.png" />
+                <a href="/dashboard"><img className="logo" alt="logo" src="finder.png" /></a>
                 <div className="options">
                     <Button className={classes.button} onClick={() => {this.props.handleChange('map')}}>
                         Mapa
