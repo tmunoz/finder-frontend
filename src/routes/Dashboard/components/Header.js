@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router'
 import PropTypes from 'prop-types';
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
@@ -7,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { withStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import "./Dashboard.scss";
 
@@ -26,11 +28,17 @@ const styles = theme => ({
 });
 
 class Header extends Component{
+
+    handleCloseSession = () => {
+        sessionStorage.removeItem('jwtToken')
+        browserHistory.push('/')
+    }
+
     render(){
         const { classes } = this.props;
         return(
             <div className="containerSidebar">
-                <img className="logo" alt="logo" src="finder.png" />
+                <a href="/dashboard"><img className="logo" alt="logo" src="finder.png" /></a>
                 <div className="options">
                     <Button className={classes.button} onClick={() => {this.props.handleChange('map')}}>
                         Mapa
@@ -50,6 +58,10 @@ class Header extends Component{
                     <Button className={classes.button} onClick={() => {this.props.handleChange('userProfile')}}>
                         {this.props.name}
                         <Icon className={classes.rightIcon}>account_circle</Icon>
+                    </Button>
+
+                    <Button className={classes.button} onClick={() => {this.handleCloseSession()}}>
+                        <Icon className={classes.rightIcon}>power_settings_new</Icon>
                     </Button>
                 </div>
             </div>
