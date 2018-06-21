@@ -44,6 +44,7 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       action: "map",
+      id: "",
       name: "",
       email:"",
       password:"",
@@ -86,6 +87,7 @@ class Dashboard extends Component {
         .then(res => res.json())
         .then(resJSON => {
               this.setState({
+                id: responseJSON.data.id,
                 name: responseJSON.data.name,
                 email: responseJSON.data.email,
                 password: responseJSON.data.password,
@@ -104,9 +106,19 @@ class Dashboard extends Component {
                 handleChange={this.handleChange}
                 name={this.state.name}
             />
-            {action == 'addLocation' && <h1> <AddLocation /> </h1>}
-            {action == 'list' && <h1> <ListLocations locations={this.state.locations}/> </h1>}
-            {action == 'userProfile' && <UserProfile name={this.state.name} email={this.state.email} />}
+            {action == 'addLocation' &&
+                <AddLocation
+                    longitude={this.state.pointLng}
+                    latitude={this.state.pointLat}
+                    userID={this.state.id}
+                />
+            }
+            {action == 'list' &&
+                <ListLocations locations={this.state.locations}/>
+            }
+            {action == 'userProfile' &&
+                <UserProfile name={this.state.name} email={this.state.email} />
+            }
             {action == 'map' && !loadingLocations &&
                   <Map
                     locations = {locations}
